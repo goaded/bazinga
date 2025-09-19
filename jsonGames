@@ -2707,14 +2707,6 @@
     "authorLink": "https://www.bornegames.com"
   },
   {
-    "id": 338,
-    "name": "Getaway Shootout",
-    "cover": "{COVER_URL}/338.png",
-    "url": "{HTML_URL}/338.html",
-    "author": "New Eich Games",
-    "authorLink": "https://www.neweichgames.com"
-  },
-  {
     "id": 339,
     "name": "House of Hazards",
     "cover": "{COVER_URL}/339.png",
