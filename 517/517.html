@@ -1,58 +1,170 @@
-<!DOCTYPE html>
+
+<?xml version="1.0" encoding="UTF-8" ?>
+
 
 <!-- Ultimate Game Stash file--> 
 <!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
 
 
-<html style="height: 100%;"><head><script src="//www.google.com/jsapi"></script><script>window.parent.maeExportApis_();</script>
 
-
-
+<Module>
+	<ModulePrefs title="Google.com" />
+	<Content type="html">
+		<![CDATA[
+<!DOCTYPE html>
+<html>
+  <head>
     <meta charset="utf-8">
-	<title>4th and Goal 2022</title>
-	<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-MENBM6GSNY"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-MENBM6GSNY")</script>
-    <style>
-        html,
-    body {
-        margin: 0px;
-        padding: 0px;
-        overflow: hidden;
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Shooter 2D Online</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/style.css">
+    <link rel="manifest" href="https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/manifest.webmanifest">
+    <script src="https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/v2.f7e6e3b1b621c40bbb17.js"></script>
+  </head>
+  <body>
+    <div id="unity-container">
+      <canvas id="unity-canvas"></canvas>
+    </div>
 
-    }
-    </style>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/phaser.min.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/ga.js"></script><script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/set.js" type="text/javascript"></script>
-<style type="text/css">#button {
-  display:none;
-}
-.imgb_vis {
-  animation: imgb-animation 7s linear;
-}
-@keyframes imgb-animation {
-  10% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(100px);
-  }
-  90% {
-    transform: translateX(100px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}</style><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src=""></script><script type="text/javascript" async="" src=""></script></head>
-<body style="height: 100%;">
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/Player.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/SceneStadium.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/ScenePlaybook.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/SceneTimeMenu.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/SceneMainMenu.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/SceneDifficultyMenu.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/SceneGameModeMenu.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/SceneTeamSelect.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/SceneTeamSelect2.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/ScenePlayoffTeamSelect.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/ScenePlayoffBracket.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/SceneGameOver.js"></script>
-    <script src="https://284711640-164027483921740274.preview.editmysite.com/uploads/b/139890129-601329693740539694/files/js/4.js"></script>
+    <div id="unity-loading-bar">
+      <div id="unity-logo"></div>
+      <div id="unity-progress-bar-empty">
+        <div id="unity-progress-bar-full"></div>
+      </div>
+    </div>
+    </div>
+
+    <script>
+      window.addEventListener("load", function () {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/ServiceWorker.js");
+        }
+      });
+
+      function onResize() {
+        var container = canvas.parentElement;
+        var w;
+        var h;
+
+        if(scaleToFit){
+          w = window.innerWidth;
+          h = window.innerHeight;
+
+          var r = 1080 / 1920;
+
+          if (w * r > window.innerHeight) {
+            w = Math.min(w, Math.ceil(h / r));
+          }
+          h = Math.floor(w * r);
+        }else {
+          w = 1920;
+          h = 1080;
+        }
+
+        container.style.width = canvas.style.width = w + "px";
+        container.style.height = canvas.style.height = h + "px";
+        container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
+        container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
+      }
+
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+
+      var buildUrl = "https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/Build/";
+      var loaderUrl = buildUrl + "/dist.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/dist.data.unityweb",
+        frameworkUrl: buildUrl + "/dist.framework.js.unityweb",
+        codeUrl: buildUrl + "/dist.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Games404",
+        productName: "Shooter2DOnline",
+        productVersion: "0.0.3"
+      };
+
+      loadingBar.style.display = "block";
+
+      var scaleToFit;
+      try {
+        scaleToFit = !!JSON.parse("");
+      } catch (e) {
+        scaleToFit = true;
+      }
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          window.Unity = unityInstance;
+          loadingBar.style.display = "none";
+          onResize();
+        });
+      };
+      document.body.appendChild(script);
+
+      window.addEventListener('resize', onResize);
+      onResize();
+
+      
+      window.addEventListener("blur", function(){
+        window.Unity.SendMessage('AudioGame', 'AudioBackgroundToggle', 'false');
+      });
+      window.addEventListener("focus", function(){
+        window.Unity.SendMessage('AudioGame', 'AudioBackgroundToggle', 'true');
+      });
+    </script>
+
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script>
+      var yaContexts = document.querySelectorAll('.ya-context');
+      var ya_rk_i = 1;
+      
+      function ShowFixedRK(){
+        for (var i = 0; i < yaContexts.length; i++) {
+          yaContexts[i].style.display = 'block';
+        }
+
+        if(window.innerWidth > 991){        
+          window.yaContextCb.push(()=>{
+            Ya.Context.AdvManager.render({
+              renderTo: 'yandex_rtb_R-A-1349452-30',
+              blockId: 'R-A-1349452-30',
+              pageNumber: ya_rk_i,
+            })
+            Ya.Context.AdvManager.render({
+              renderTo: 'yandex_rtb_R-A-1349452-31',
+              blockId: 'R-A-1349452-31',
+              pageNumber: ya_rk_i,
+            })
+          })
+        }
+        ya_rk_i++;
+      }
+      function HideFixedRK(){
+        for (var i = 0; i < yaContexts.length; i++) {
+          yaContexts[i].style.display = 'none';
+        }
+      }
+
+      function showFullscrenAd() {
+          // sdk.adv.showFullscreenAdv();
+      }
+
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      ym(86196628, "init", {
+          clickmap:true,
+          trackLinks:true,
+          accurateTrackBounce:true
+      });
+    </script>
+  </body>
+</html>
+
+
+	</Content>
+</Module>
