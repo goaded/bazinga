@@ -1,170 +1,59 @@
 
-<?xml version="1.0" encoding="UTF-8" ?>
-
 
 <!-- Ultimate Game Stash file--> 
 <!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
 
 
+</style></head><body dir="ltr"><script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/UnityProgress.js"></script><script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/2.7.js"></script><script type="text/javascript">
+      var gameInstance;
 
-<Module>
-	<ModulePrefs title="Google.com" />
-	<Content type="html">
-		<![CDATA[
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Shooter 2D Online</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/style.css">
-    <link rel="manifest" href="https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/manifest.webmanifest">
-    <script src="https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/v2.f7e6e3b1b621c40bbb17.js"></script>
-  </head>
-  <body>
-    <div id="unity-container">
-      <canvas id="unity-canvas"></canvas>
-    </div>
-
-    <div id="unity-loading-bar">
-      <div id="unity-logo"></div>
-      <div id="unity-progress-bar-empty">
-        <div id="unity-progress-bar-full"></div>
-      </div>
-    </div>
-    </div>
-
-    <script>
-      window.addEventListener("load", function () {
-        if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/ServiceWorker.js");
-        }
-      });
-
-      function onResize() {
-        var container = canvas.parentElement;
-        var w;
-        var h;
-
-        if(scaleToFit){
-          w = window.innerWidth;
-          h = window.innerHeight;
-
-          var r = 1080 / 1920;
-
-          if (w * r > window.innerHeight) {
-            w = Math.min(w, Math.ceil(h / r));
-          }
-          h = Math.floor(w * r);
-        }else {
-          w = 1920;
-          h = 1080;
-        }
-
-        container.style.width = canvas.style.width = w + "px";
-        container.style.height = canvas.style.height = h + "px";
-        container.style.top = Math.floor((window.innerHeight - h) / 2) + "px";
-        container.style.left = Math.floor((window.innerWidth - w) / 2) + "px";
-      }
-
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-
-      var buildUrl = "https://cdn.jsdelivr.net/gh/dayyiq/fdfd@main/Build/";
-      var loaderUrl = buildUrl + "/dist.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/dist.data.unityweb",
-        frameworkUrl: buildUrl + "/dist.framework.js.unityweb",
-        codeUrl: buildUrl + "/dist.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "Games404",
-        productName: "Shooter2DOnline",
-        productVersion: "0.0.3"
-      };
-
-      loadingBar.style.display = "block";
-
-      var scaleToFit;
-      try {
-        scaleToFit = !!JSON.parse("");
-      } catch (e) {
-        scaleToFit = true;
-      }
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-          window.Unity = unityInstance;
-          loadingBar.style.display = "none";
-          onResize();
+      window.onload = function () {
+        gameInstance = UnityLoader.instantiate("gameContainer", "https://cdn.jsdelivr.net/gh/n-101-1/1@main/2.7.json", {
+          onProgress: UnityProgress,
+          Module: {
+            onRuntimeInitialized: function () {
+              UnityProgress(gameInstance, "complete");
+            },
+          },
         });
       };
-      document.body.appendChild(script);
-
-      window.addEventListener('resize', onResize);
-      onResize();
-
-      
-      window.addEventListener("blur", function(){
-        window.Unity.SendMessage('AudioGame', 'AudioBackgroundToggle', 'false');
-      });
-      window.addEventListener("focus", function(){
-        window.Unity.SendMessage('AudioGame', 'AudioBackgroundToggle', 'true');
-      });
     </script>
+    <div class="webgl-content">
+      <div id="gameContainer" style="width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; position: relative; background: rgb(0, 0, 0);"><canvas id="#canvas" style="width: 100%; height: 100%; cursor: default;" width="1018" height="926"></canvas><div class="logo Dark" style="display: none;"></div><div class="progress Dark" style="display: none;"><div class="empty" style="width: 0%;"></div><div class="full" style="width: 100%;"></div></div></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firebase-app.js"></script>
 
-    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firebase-auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firebase-firestore.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1login.js?v=2"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n-101-1/1@main/1firestore.js"></script>
+
     <script>
-      var yaContexts = document.querySelectorAll('.ya-context');
-      var ya_rk_i = 1;
-      
-      function ShowFixedRK(){
-        for (var i = 0; i < yaContexts.length; i++) {
-          yaContexts[i].style.display = 'block';
-        }
+      initializeFireBase();
 
-        if(window.innerWidth > 991){        
-          window.yaContextCb.push(()=>{
-            Ya.Context.AdvManager.render({
-              renderTo: 'yandex_rtb_R-A-1349452-30',
-              blockId: 'R-A-1349452-30',
-              pageNumber: ya_rk_i,
-            })
-            Ya.Context.AdvManager.render({
-              renderTo: 'yandex_rtb_R-A-1349452-31',
-              blockId: 'R-A-1349452-31',
-              pageNumber: ya_rk_i,
-            })
-          })
-        }
-        ya_rk_i++;
+      function showAds() {
+        console.log("show ads");
       }
-      function HideFixedRK(){
-        for (var i = 0; i < yaContexts.length; i++) {
-          yaContexts[i].style.display = 'none';
+      function requestNewAd() {
+        // Show video ad
+        unityAdFinishedCallback();
+      }
+      function unityAdFinishedCallback() {
+        try {
+          if (gameInstance) gameInstance.SendMessage("AdsManager", "OnWebCallback");
+        } catch (error) {
+          console.log(error);
         }
       }
-
-      function showFullscrenAd() {
-          // sdk.adv.showFullscreenAdv();
-      }
-
-      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-      m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-      ym(86196628, "init", {
-          clickmap:true,
-          trackLinks:true,
-          accurateTrackBounce:true
-      });
     </script>
-  </body>
-</html>
+  
 
 
-	</Content>
-</Module>
+
+
+
+
+</script><script src="blob:https://gotlgsogl-opensocial.googleusercontent.com/43fddd1c-53cc-4d6d-88c5-93762d972e03" id="a96bf7f9ec45ce9224c9b5b9b42b17b2"></script></body></html>
