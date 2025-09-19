@@ -137,6 +137,7 @@
 
         async function listZones() {
             try {
+                const oldZonesUrl = "https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json";
                 const newZonesUrl = "https://raw.githubusercontent.com/goaded/bazinga/main/jsonGames";
 
                 const [oldResponse, newResponse] = await Promise.all([
