@@ -5,78 +5,241 @@
 <!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
 
 
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-us">
+<base href="https://rawcdn.githack.com/bubbls/UGS-Assets/72d44e5cd51216700d64b2bee29932d454a862bf/alien%20sky%20invasion/">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Abandoned</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Alien Sky Invasion - FreezeNova</title>
+ 
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
+
+  <script src="TemplateData/UnityProgress.js"></script>
+  <script src="Build/UnityLoader.js"></script>
+
+
+  <style type="text/css">
+    body {
       overflow: hidden;
-      height: 100%;
-      width: 100%;
-    }
-
-    #flash-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: black;
-    }
-
-    ruffle-player {
-      width: 100%;
-      height: 100%;
-      background: black;
-      display: block;
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/gh/somer-sheff-73/xv@main/ruffle.js"></script>
-</head>
-<body>
-  <div id="flash-container"></div>
+
+
+  <script src="/assets/scripts/game.js"></script>
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GXS04HS5MX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-GXS04HS5MX');
+  </script>
+
+
+  <script src="/assets/promo/promo.js" async></script>
+  <script type="text/javascript" async>
+    ! function(e, t) {
+      var a = e.createElement("script"),
+        m = e.getElementsByTagName("script")[0];
+
+      a.async = 1;
+      a.src = t;
+
+      a.onload = function() {
+        console.log("Dynamic script loaded wg");
+        if (typeof window.syncPromoManager === "function") window.syncPromoManager(false);
+        window.wgLoaded = 1;
+      };
+
+      a.onerror = function() {
+        console.error("Failed to load wg");
+        if (typeof window.syncPromoManager === "function") window.syncPromoManager(true);
+        window.wgLoaded = 2;
+      };
+
+      m.parentNode.insertBefore(a, m);
+    }(document, "https://universal.wgplayer.com/tag/?lh=" + window.location.hostname + "&wp=" + window.location.pathname + "&ws=" + window.location.search);
+  </script>
+
 
   <script>
-    const container = document.getElementById("flash-container");
+    function SubmitLeaderboardScore(newScore) {
 
-    function resizeGame() {
-      const windowWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
-      const aspectRatio = 4 / 3;
-
-      let width = Math.floor(windowWidth);
-      let height = Math.floor(windowWidth / aspectRatio);
-
-      if (height > windowHeight) {
-        height = Math.floor(windowHeight);
-        width = Math.floor(height * aspectRatio);
-      }
-
-      container.style.width = `${width}px`;
-      container.style.height = `${height}px`;
     }
 
-    window.addEventListener("resize", resizeGame);
-    window.addEventListener("DOMContentLoaded", () => {
-      resizeGame();
+    function GetLeaderboardEntries() {
 
-      const ruffle = window.RufflePlayer?.newest() || window.RufflePlayer?.createPlayer();
-      if (ruffle && container) {
-        const player = ruffle.createPlayer();
-        player.style.width = "100%";
-        player.style.height = "100%";
-        player.style.background = "black";
-        container.appendChild(player);
-        player.load("https://cdn.jsdelivr.net/gh/bubbls/UGS-file-encryption@aeb16a3b2fb4b413fcfb328185da5278001d5794/450670_Amorphous_.swf");
-      } else {
-        container.textContent = "Ruffle failed to load.";
+    }
+
+    function InitApi(_appId) {
+      var dateNow = new Date();
+      var secondsSinceEpoch = Math.round(dateNow.getTime() / 1000);
+
+      console.log('InitApi');
+
+      window.callTime = secondsSinceEpoch - 181;
+    }
+
+    function InitExternEval(_appId) {
+      console.log("InitExternEval");
+
+      ExternEval();
+    }
+
+    function ExternEval() {
+      console.log("ExternEval");
+
+      var dateNow = new Date();
+      var secondsSinceEpoch = Math.round(dateNow.getTime() / 1000);
+
+      if (window.callTime != undefined &&
+        secondsSinceEpoch - window.callTime > 180) {
+        console.log('ExternEval 2');
+
+        window.callTime = secondsSinceEpoch;
+
+        if (typeof preroll !== 'undefined') {
+          if (window[preroll.config.loaderObjectName] != undefined) {
+            gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'onOpen');
+
+            try {
+              window[preroll.config.loaderObjectName].refetchAd(ExternEvalResumeGame);
+            } catch (err) {
+              console.log(err.message);
+              gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'onClose');
+            }
+          }
+        }
       }
+
+    }
+
+    function ExternEvalResumeGame() {
+      console.log("ExternEvalResumeGame");
+
+      gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'onClose');
+    }
+
+    function PreloadRewarded() {
+      console.log("PreloadRewarded");
+
+      if (window.rewardedCallbacks == undefined) {
+        window.rewardedCallbacks = true;
+
+        try {
+          window[window.preroll.config.loaderObjectName].registerRewardCallbacks({
+            onReady: RewardedReady,
+            onSuccess: RewardedSuccess,
+            onFail: RewardedFail,
+            onClose: RewardedClose
+          });
+        } catch (err) {
+          console.log(err.message);
+        }
+      }
+    }
+
+    function ShowRewarded() {
+      console.log("ShowRewarded");
+
+      if (typeof preroll !== 'undefined') {
+        if (window.rewardedCallbacks == undefined) {
+          PreloadRewarded();
+        }
+
+        if (window[preroll.config.loaderObjectName] != undefined) {
+          gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'onOpen');
+
+          try {
+            window[preroll.config.loaderObjectName].showRewardAd();
+          } catch (err) {
+            console.log(err.message);
+            gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'onClose');
+          }
+        }
+      }
+
+    }
+
+    function RewardedReady() {
+      console.log("RewardedReady");
+
+      if (window.rewardedCount == undefined) {
+        window.rewardedCount = 1;
+        window.gameInstance.SendMessage('FreezeNovaAPI', 'RewardedReady');
+      } else {
+        window.rewardedCount = window.rewardedCount + 1;
+        //setTimeout(function(){ window.gameInstance.SendMessage('FreezeNovaAPI', 'RewardedReady'); }, 30000);
+        window.gameInstance.SendMessage('FreezeNovaAPI', 'RewardedReady');
+      }
+
+    }
+
+    function RewardedSuccess() {
+      console.log("RewardedSuccess");
+      gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'RewardedOnRewarded');
+      //gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'onClose');
+    }
+
+    function RewardedFail() {
+      console.log("RewardedFail");
+      gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'RewardedOnFail');
+      //gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'onClose');
+    }
+
+    function RewardedClose() {
+      console.log("RewardedClose");
+      gameInstance.SendMessage('FreezeNovaAPI', 'AdMessage', 'onClose');
+    }
+
+    InitApi(0);
+  </script>
+
+
+  <script>
+    function FitScreen() {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+
+      var availWidth = window.innerWidth;
+      var availHeight = window.innerHeight;
+
+      var canvas = document.getElementById("#canvas");
+      if (availWidth / availHeight > w / h) {
+        height = availHeight;
+        width = (height * w / h);
+      } else {
+        width = availWidth;
+        height = width * h / w;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      document.getElementById("gameContainer").style.width = width + "px";
+      document.getElementById("gameContainer").style.height = height + "px";
+
+    }
+
+    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/game.json", {
+      onProgress: UnityProgress
     });
   </script>
+
+</head>
+
+<body onfocus="FitScreen();" onload="FitScreen();" onresize="FitScreen();" style="width:100%; height:100%">
+  <div class="webgl-content">
+    <div id="gameContainer" style="width: auto; height: auto"></div>
+  </div>
 </body>
+
 </html>
