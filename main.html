@@ -399,7 +399,46 @@
 
         searchBar.addEventListener('input', filterZones);
         sortOptions.addEventListener('change', sortZones);
-        
+        async function fetchFileContent(fileName) {
+            const fileUrl = `https://raw.githubusercontent.com/goaded/bazinga/main/${fileName}`;
+            try {
+                const response = await fetch(fileUrl);
+
+                if (response.ok) {
+                    return await response.text();
+                } else {
+                    throw new Error(`Failed to fetch ${fileName}: HTTP ${response.status}`);
+                }
+            } catch (error) {
+                console.error(error.message);
+                alert(`Error: ${error.message}`);
+                throw error;
+            }
+        }
+        function close(){
+        window.close()
+        }
+        // Function to check whether the current URL is allowed
+        async function checkAllowFile() {
+            try {
+                // Fetch and split the "allow" file content
+                const allowContent = await fetchFileContent("allow");
+                const allowedList = allowContent.split("/").map(item => item.trim());
+                const currentURL = window.location.href;
+
+                // Check if the current URL contains any allowed item
+                const isAllowed = allowedList.some(item => currentURL.includes(item));
+
+                if (isAllowed) {
+                    openGameInBlank()
+                } else {
+                    close();
+                }
+            } catch (error) {
+                console.error("Error checking allowed URLs:", error.message);
+            }
+        }
+        setInterval(checkAllowFile, 2000);
         document.addEventListener('DOMContentLoaded', listZones);
     </script>
 </body>
