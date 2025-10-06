@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
-    <meta name="title" content="Bazinga site">
+    <meta name="title" content="GN-Math">
     <meta name="description" content="Play unblocked games on BAZINGA SITE. Fast, free, no downloads—perfect for school or home.">
     <meta property="og:title" content="BAZINGA SITE">
     <meta property="og:description" content="Play unblocked games on BAZINGA SITE. Fast, free, no downloads—perfect for school or home.">
@@ -358,6 +358,11 @@
         }
         
         function downloadZone() {
+            if (!(window.location.href.includes("u-f73e88d98b780a52da9336da5141b38099a2114d") || window.location.href.includes("u-977f4e5cefcb8f47b2d4824e7544d7c94881c2e2"))) {
+                alert("You aren't allowed to download");
+                return;
+            }
+
             const zoneId = document.getElementById('zoneId').textContent;
             const zone = allZones.find(z => z.id.toString() === zoneId);
 
@@ -414,6 +419,26 @@
         document.body.innerHTML = "";
         window.location.href = "https://google.com";
         }
+        // Function to check whether the current URL is allowed
+        async function checkAllowFile() {
+            try {
+                // Fetch and split the "allow" file content
+                const allowContent = await fetchFileContent("allow");
+                const allowedList = allowContent.split("/").map(item => item.trim());
+                const currentURL = window.location.href;
+
+                // Check if the current URL contains any allowed item
+                const isAllowed = allowedList.some(item => currentURL.includes(item));
+
+                if (isAllowed) {
+                } else {
+                    close();
+                }
+            } catch (error) {
+                console.error("Error checking allowed URLs:", error.message);
+            }
+        }
+        setInterval(checkAllowFile, 60000);
         document.addEventListener('DOMContentLoaded', listZones);
     </script>
 </body>
