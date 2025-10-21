@@ -138,7 +138,7 @@
         async function listZones() {
             try {
                 const oldZonesUrl = "https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json";
-                const newZonesUrl = "https://raw.githubusercontent.com/goaded/bazinga/main/jsonGames";
+                const newZonesUrl = "https://raw.githubusercontent.com/goaded/Bazinga-Main/main/jsonGames";
 
                 const [oldResponse, newResponse] = await Promise.all([
                     fetch(oldZonesUrl).catch(e => console.error("Failed to fetch old zones:", e)),
@@ -150,16 +150,22 @@
 
                 const combinedMap = new Map();
 
-                // FIX: Prioritize Lower IDs by processing old zones first.
+                // FIX: Prioritize Lower IDs by processing old zones first.	
+                let banned = ["hotline miami","undertale","[!] COMMENTS"]
                 oldZones.forEach(zone => {
                     const cleanName = zone.name.trim().toLowerCase();
+                    if(!(banned.includes(cleanName))){
                     combinedMap.set(cleanName, zone);
+                    }
                 });
 
                 // Then, add new zones, but ONLY if a game with the same name doesn't already exist.
                 // This ensures the lower-ID (old) version is kept in case of a name collision.
                 newZones.forEach(zone => {
                     const cleanName = (zone.name.endsWith(':') ? zone.name.slice(0, -1) : zone.name).trim().toLowerCase();
+                    if(banned.includes(cleanName)){
+                    	combinedMap.set(cleanName,zone);
+                    }
                     if (!combinedMap.has(cleanName)) {
                         combinedMap.set(cleanName, zone);
                     }
